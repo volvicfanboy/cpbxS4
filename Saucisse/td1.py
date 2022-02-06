@@ -39,19 +39,30 @@ buttonR = Button(menu,text="Move Right",command=lambda : move(plateau,pawn,10,0)
 buttonL = Button(menu,text="Move Left",command=lambda :  move(plateau,pawn,-10,0))
 buttonU = Button(menu,text="Move Up",command=lambda : move(plateau,pawn,0,10))
 buttonD = Button(menu,text="Move Down",command=lambda : move(plateau,pawn,0,-10))
+buttonChangeColor = Button(menu,text="Change Color",command=lambda :changeColor(pawn))
 
 buttonL.pack()
 buttonD.pack()
 buttonR.pack()
 buttonU.pack()
+buttonChangeColor.pack()
 
-def changeToGreen():
+def changeToGreen(id):
     plateau.itemconfig(id,fill = "green")
+
+def changeColor(id):
+    attribute = plateau.itemconfig(id)
+    (a,r,g,b,c) = attribute["fill"]
+    c = "green" if c=="red" else "red"
+    plateau.itemconfig(id,fill =c);
+
 
 #Question 3.1
 def keyIn(evt):
     print("Vous avez appuy ́e sur la touche ",evt.char)
 myWindow.bind("<Key>",keyIn)
+
+
 
 
 myWindow.mainloop()
