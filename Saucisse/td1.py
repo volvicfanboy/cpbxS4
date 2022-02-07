@@ -31,24 +31,15 @@ def move(canvas, id, dx, dy):
         return
     canvas.coords(id, (x3, y3, x4, y4))
 
+# Pion
+pawn = plateau.create_oval(150, 100, 175, 125)
 
-<<<<<<< Updated upstream
 #Quatre button de deplacement
 buttonR = Button(menu,text="Move Right",command=lambda : move(plateau,pawn,10,0))
 buttonL = Button(menu,text="Move Left",command=lambda :  move(plateau,pawn,-10,0))
 buttonU = Button(menu,text="Move Up",command=lambda : move(plateau,pawn,0,10))
 buttonD = Button(menu,text="Move Down",command=lambda : move(plateau,pawn,0,-10))
 buttonChangeColor = Button(menu,text="Change Color",command=lambda :changeColor(pawn))
-=======
-# Pion
-pawn = plateau.create_oval(150, 100, 175, 125)
-
-# Quatre button de deplacement
-buttonR = Button(menu, text="Move Right", command=lambda: move(plateau, pawn, 10, 0))
-buttonL = Button(menu, text="Move Left", command=lambda: move(plateau, pawn, -10, 0))
-buttonU = Button(menu, text="Move Up", command=lambda: move(plateau, pawn, 0, 10))
-buttonD = Button(menu, text="Move Down", command=lambda: move(plateau, pawn, 0, -10))
->>>>>>> Stashed changes
 
 buttonL.pack()
 buttonD.pack()
@@ -56,7 +47,6 @@ buttonR.pack()
 buttonU.pack()
 buttonChangeColor.pack()
 
-<<<<<<< Updated upstream
 def changeToGreen(id):
     plateau.itemconfig(id,fill = "green")
 
@@ -68,20 +58,11 @@ def changeColor(id):
 
 
 #Question 3.1
-=======
-
-def changeToGreen():
-    plateau.itemconfig(id, fill="green")
-
-
-# Question 3.1
->>>>>>> Stashed changes
 def keyIn(evt):
     print("Vous avez appuyé sur la touche ", evt.char)
 
 
 myWindow.bind("<Key>", keyIn)
-
 
 
 myWindow.mainloop()
