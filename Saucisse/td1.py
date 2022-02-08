@@ -4,6 +4,7 @@ from math import *
 
 #GLOBAL VAR
 threahold = 15
+pawnRadius = 30
 (screenWidth, screenHeight) = (300, 200)
 food=None
 
@@ -69,15 +70,18 @@ def move(canvas, id, dx, dy, _foodDp):
     _foodDp.checkPawn(canvas, id)
 
 
-# Pion
-pawn = plateau.create_oval(150, 100, 175, 125)
+# Pion qui spawn aléatoirement sur le plateau
+(pawnX,pawnY) = (random.randint(0,screenWidth),random.randint(0,screenHeight))
+pawn = plateau.create_oval(pawnX, pawnY, pawnX+pawnRadius, pawnY+pawnRadius)
+
 
 # Quatre button de déplacement
-buttonR = Button(menu, text="Move Right", command=lambda: move(plateau, pawn, 10, 0, food))
+buttonR = Button(menu, text="Move Right", command=lambda : move(plateau, pawn, 10, 0, food))
 buttonL = Button(menu, text="Move Left", command=lambda: move(plateau, pawn, -10, 0, food))
 buttonU = Button(menu, text="Move Up", command=lambda: move(plateau, pawn, 0, 10, food))
 buttonD = Button(menu, text="Move Down", command=lambda: move(plateau, pawn, 0, -10, food))
 buttonChangeColor = Button(menu, text="Change Color", command=lambda: changeColor(pawn))
+
 
 buttonL.pack()
 buttonD.pack()
@@ -101,14 +105,22 @@ def keyIn(evt):
 myWindow.bind("<Key>", keyIn)
 
 # Question 3.3
+def foo(evt):
+    if(evt.char == 'z'):
+        move(plateau,pawn,0,-10,food)
+    if(evt.char == 'q'):
+        move(plateau,pawn,-10,0,food)
+    if(evt.char == 's'):
+        move(plateau,pawn,0,10,food)
+    if(evt.char == 'd'):
+        move(plateau,pawn,10,0,food)
 
-myWindow.bind("<q>", lambda effect: move(plateau, pawn, -10, 0, food))
-myWindow.bind("<z>", lambda effect: move(plateau, pawn, 0, -10, food))
-myWindow.bind("<s>", lambda effect: move(plateau, pawn, 0, 10, food))
-myWindow.bind("<d>", lambda effect: move(plateau, pawn, 10, 0, food))
+myWindow.bind("<Key>", foo)
 
 
 # Question 4.1
+
+
 
 food = foodObj(plateau)
 
