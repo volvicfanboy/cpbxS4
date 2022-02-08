@@ -2,7 +2,11 @@ import random
 from tkinter import *
 from math import *
 
+#GLOBAL VAR
+threahold = 15
 (screenWidth, screenHeight) = (300, 200)
+food=None
+
 
 myWindow = Tk()
 # L=Label(myWindow,text = "blabla")
@@ -28,7 +32,7 @@ label2.pack()
 
 
 # Question 4.1
-class foodObj:
+class foodObj():
     def __init__(self,canvas):
         self.obj =None
         self.score = IntVar()
@@ -46,19 +50,20 @@ class foodObj:
     def checkPawn(self,plateau, pawn):
         (x, y, x2, y2) = plateau.coords(pawn)
         (xf, yf) = self.coord
-        print(foodDp.coord)
-        if abs(((x + x2) / 2) - xf) < 5 or abs(((y + y2) / 2) - yf) < 5:
+        print(food.coord)
+        print(((x + x2) / 2),((y + y2) / 2))
+        if abs(((x + x2) / 2) - xf) < threahold and abs(((y + y2) / 2) - yf) < threahold:
             self.spawnNewFood(plateau)
+            changeColor(pawn)
 
 
-foodDp=None
 #Question 4.1 fin
 
 # Question 2.4
 def move(canvas, id, dx, dy, _foodDp):
     (x1, y1, x2, y2) = canvas.coords(id)
     (x3, y3, x4, y4) = (x1 + dx, y1 + dy, x2 + dx, y2 + dy)
-    if x4 > 300 or y4 > 200 or x3 < 0 or y3 < 0:
+    if x4 > screenWidth or y4 > screenHeight or x3 < 0 or y3 < 0:
         return
     canvas.coords(id, (x3, y3, x4, y4))
     _foodDp.checkPawn(canvas, id)
@@ -67,11 +72,11 @@ def move(canvas, id, dx, dy, _foodDp):
 # Pion
 pawn = plateau.create_oval(150, 100, 175, 125)
 
-# Quatre button de deplacement
-buttonR = Button(menu, text="Move Right", command=lambda: move(plateau, pawn, 10, 0, foodDp))
-buttonL = Button(menu, text="Move Left", command=lambda: move(plateau, pawn, -10, 0, foodDp))
-buttonU = Button(menu, text="Move Up", command=lambda: move(plateau, pawn, 0, 10, foodDp))
-buttonD = Button(menu, text="Move Down", command=lambda: move(plateau, pawn, 0, -10, foodDp))
+# Quatre button de déplacement
+buttonR = Button(menu, text="Move Right", command=lambda: move(plateau, pawn, 10, 0, food))
+buttonL = Button(menu, text="Move Left", command=lambda: move(plateau, pawn, -10, 0, food))
+buttonU = Button(menu, text="Move Up", command=lambda: move(plateau, pawn, 0, 10, food))
+buttonD = Button(menu, text="Move Down", command=lambda: move(plateau, pawn, 0, -10, food))
 buttonChangeColor = Button(menu, text="Change Color", command=lambda: changeColor(pawn))
 
 buttonL.pack()
@@ -83,8 +88,6 @@ buttonChangeColor.pack()
 
 def changeToGreen(id):
     plateau.itemconfig(id, fill="green")
-
-
 def changeColor(id):
     attribute = plateau.itemconfig(id)
     (a, r, g, b, c) = attribute["fill"]
@@ -95,27 +98,24 @@ def changeColor(id):
 # Question 3.1
 def keyIn(evt):
     print("Vous avez appuyé sur la touche ", evt.char)
-
-
 myWindow.bind("<Key>", keyIn)
 
 # Question 3.3
 
-myWindow.bind("<q>", lambda effect: move(plateau, pawn, -10, 0, foodDp))
-myWindow.bind("<z>", lambda effect: move(plateau, pawn, 0, -10, foodDp))
-myWindow.bind("<s>", lambda effect: move(plateau, pawn, 0, 10, foodDp))
-myWindow.bind("<d>", lambda effect: move(plateau, pawn, 10, 0, foodDp))
+myWindow.bind("<q>", lambda effect: move(plateau, pawn, -10, 0, food))
+myWindow.bind("<z>", lambda effect: move(plateau, pawn, 0, -10, food))
+myWindow.bind("<s>", lambda effect: move(plateau, pawn, 0, 10, food))
+myWindow.bind("<d>", lambda effect: move(plateau, pawn, 10, 0, food))
 
 
 # Question 4.1
 
-foodDp = foodObj(plateau)
+food = foodObj(plateau)
 
-scoreDp = Label(menu,textvariable=foodDp.score)
+scoreDp = Label(menu, textvariable=food.score)
 scoreDp.pack()
 
 
 
 myWindow.mainloop()
 
-# emit from jetbrain
