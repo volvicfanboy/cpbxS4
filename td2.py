@@ -178,4 +178,3 @@ class Game:
 
 
 gameInstance = Game((500,300),(7,7),(7,7),6,50)
-
