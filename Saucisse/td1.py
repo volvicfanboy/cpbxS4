@@ -105,7 +105,7 @@ def keyIn(evt):
 myWindow.bind("<Key>", keyIn)
 
 # Question 3.3
-def foo(evt):
+def moveKey(evt):
     if(evt.char == 'z'):
         move(plateau,pawn,0,-10,food)
     if(evt.char == 'q'):
@@ -115,7 +115,7 @@ def foo(evt):
     if(evt.char == 'd'):
         move(plateau,pawn,10,0,food)
 
-myWindow.bind("<Key>", foo)
+myWindow.bind("<Key>", moveKey)
 
 
 # Question 4.1
